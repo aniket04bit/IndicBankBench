@@ -1,4 +1,5 @@
 """Tests for tool contracts."""
+import collections
 import json
 import re
 import sys
@@ -83,6 +84,15 @@ class GoldCallRoundTrip(unittest.TestCase):
 
 @needs_cases
 class CaseBankPreflight(unittest.TestCase):
+
+    def test_every_case_exposes_unique_tool_names(self):
+        duplicates = []
+        for path, case in _cases():
+            names = [entry for entry in case["tools_exposed"] if isinstance(entry, str)]
+            repeated = sorted(name for name, count in collections.Counter(names).items() if count > 1)
+            if repeated:
+                duplicates.append(f"{path.relative_to(CASE_BANK)}: {', '.join(repeated)}")
+        self.assertEqual([], duplicates, "duplicate exposed tool names:\n  " + "\n  ".join(duplicates))
 
     def test_every_exposed_tool_name_resolves(self):
         _, defs = tools.load_tool_definitions()

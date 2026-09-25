@@ -14,6 +14,10 @@ class RunnerError(Exception):
         self.transcript = transcript
 
 
+class MaxToolIterationsError(RunnerError):
+    pass
+
+
 def _to_wire(transcript):
     wire = []
     for msg in transcript:
@@ -75,7 +79,7 @@ def run_case(case, model_client, candidate_profile="candidate_default", max_tool
             transcript.append(final_msg)
             break
         else:
-            raise RunnerError(
+            raise MaxToolIterationsError(
                 f"max_tool_iters ({max_tool_iters}) exceeded without a final answer "
                 f"for case {case.get('case_id')}",
                 transcript,

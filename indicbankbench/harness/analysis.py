@@ -233,7 +233,8 @@ def render_run_report(summary, generated_at=None):
             L.append(f"| {reason} | {count} |")
         L.append("")
         L.append("> `A1` = one or more required tools were not called; `R` = the response "
-                 "missed its semantic criterion. Inspect the transcript to determine the cause.")
+                 "missed its semantic criterion; `NO_FINAL_ANSWER` = the candidate reached "
+                 "the tool-round limit without answering. Inspect the transcript to determine the cause.")
         L.append("")
 
     if summary["quality"]:

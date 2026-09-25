@@ -76,10 +76,19 @@ def _run_one(case, model_mode, judge_mode, real_client_getter, out_dir, case_fin
              base_prompt_path=None):
     out_dir.mkdir(parents=True, exist_ok=True)
     candidate_client, candidate_profile = _make_candidate_client(model_mode, real_client_getter)
-    transcript = runner.run_case(case, candidate_client, candidate_profile, base_prompt_path=base_prompt_path)
-    judge_result = _get_judge_result(judge_mode, case, transcript, real_client_getter)
-    g2_judge_result = _get_g2_judge_result(judge_mode, case, transcript, real_client_getter)
-    result = grader.grade(case, transcript, judge_result, g2_judge_result=g2_judge_result)
+    try:
+        transcript = runner.run_case(case, candidate_client, candidate_profile, base_prompt_path=base_prompt_path)
+    except runner.MaxToolIterationsError as exc:
+        transcript = exc.transcript
+        result = grader.grade(case, transcript)
+        if result["verdict"] == "INCOMPLETE":
+            result["verdict"] = "FAIL"
+            result["fail_reason"] = "NO_FINAL_ANSWER"
+        result["termination_reason"] = "max_tool_iters"
+    else:
+        judge_result = _get_judge_result(judge_mode, case, transcript, real_client_getter)
+        g2_judge_result = _get_g2_judge_result(judge_mode, case, transcript, real_client_getter)
+        result = grader.grade(case, transcript, judge_result, g2_judge_result=g2_judge_result)
     if case_fingerprint:
         result["_fingerprint"] = case_fingerprint
     (out_dir / "transcript.json").write_text(json.dumps(transcript, indent=2))

@@ -76,9 +76,8 @@ class ModelClient:
         api_key = os.environ.get(profile["api_key_env"]) or "EMPTY"
         if api_key == "EMPTY":
             logging.warning(
-                "Environment variable %r is not set; using placeholder 'EMPTY'. "
+                "API key is not configured; using placeholder 'EMPTY'. "
                 "This is fine for local vLLM but will fail against authenticated endpoints.",
-                profile["api_key_env"],
             )
         client = OpenAI(
             api_key=api_key,
