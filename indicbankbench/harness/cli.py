@@ -229,7 +229,7 @@ def cmd_run(args):
 
     cfg = _run_config()
     if not cfg["candidate_base_url"]:
-        print("CANDIDATE_BASE_URL is not set — see HOW_TO_RUN.md §1.", file=sys.stderr)
+        print("CANDIDATE_BASE_URL is not set — see HOW_TO_RUN.md.", file=sys.stderr)
         sys.exit(2)
 
     resolved_prompt_path = Path(args.prompt).resolve() if args.prompt else prompt.BASE_PROMPT_PATH
@@ -393,14 +393,13 @@ def main():
         description=(
             "Evaluate the model at CANDIDATE_BASE_URL/CANDIDATE_MODEL over the case bank.\n\n"
             "Scoring is STRICT: with --passes N a case counts only if it passes all N times.\n"
-            "Temperature is not a flag — set it in config/models.yaml; it is recorded in run.json.\n"
-            "Re-running the same --run-id resumes automatically, reusing only results whose case\n"
-            "file and model/temperature are unchanged."
+            "Temperature is not a flag — set it in indicbankbench/config/models.yaml; it is recorded in run.json.\n"
+            "Re-running the same --run-id resumes automatically; see HOW_TO_RUN.md for cache rules."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument("--run-id", default=None,
-                   help="name for this run (default: <model>_<timestamp>); results land in results/<run-id>/")
+                   help="name for this run (default: <model>_<timestamp>); results land in indicbankbench/results/<run-id>/")
     p.add_argument("--passes", type=int, default=3, metavar="N",
                    help="how many times to run every case (default: 3). 1 = plain pass rate, no consistency signal")
     p.add_argument("--cases", nargs="+", default=None, metavar="PATH",
@@ -426,7 +425,7 @@ def main():
         description=("Put finished runs side by side. Each run's run.json carries its own configuration, "
                      "so mismatches (different temperature, passes, or case bank) are reported as warnings."),
     )
-    c.add_argument("run_ids", nargs="+", metavar="RUN_ID", help="run ids under results/")
+    c.add_argument("run_ids", nargs="+", metavar="RUN_ID", help="run ids under indicbankbench/results/")
     c.add_argument("--out", default=None, help="write markdown here instead of stdout")
     c.set_defaults(func=cmd_compare)
 

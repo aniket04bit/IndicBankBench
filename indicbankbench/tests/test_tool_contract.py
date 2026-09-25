@@ -483,7 +483,7 @@ class AdvisoryMetricIdsAreKnown(unittest.TestCase):
                 checked += 1
                 if m not in self.KNOWN:
                     offenders.append(f"{path.relative_to(CASE_BANK)}: {m!r} "
-                                     f"is not a CODES.md metric {sorted(self.KNOWN)}")
+                                     f"is not a RESULTS.md metric {sorted(self.KNOWN)}")
         self.assertGreater(checked, 100, "the advisory-metric scan examined almost nothing")
         self.assertEqual([], offenders, "\n  " + "\n  ".join(offenders))
 

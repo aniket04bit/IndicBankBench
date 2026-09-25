@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use IndicBankBench, please cite the paper below."
+title: IndicBankBench
+type: software
+authors:
+  - family-names: Paul
+    given-names: Suvradip
+  - family-names: Bhushan
+    given-names: Chandra
+  - family-names: Sharma
+    given-names: Harsh
+  - family-names: Kukreja
+    given-names: Nitin
+  - family-names: Dedhia
+    given-names: Yatharth
+  - family-names: Doshi
+    given-names: Keyur
+  - family-names: Devadiga
+    given-names: Prashant
+repository-code: "https://github.com/npci/IndicBankBench"
+url: "https://github.com/npci/IndicBankBench"
+license: MIT
+preferred-citation:
+  type: article
+  title: "IndicBankBench: Evaluating Safety and Reliability of Language Model Assistants in Indian Retail Banking"
+  authors:
+    - family-names: Paul
+      given-names: Suvradip
+    - family-names: Bhushan
+      given-names: Chandra
+    - family-names: Sharma
+      given-names: Harsh
+    - family-names: Kukreja
+      given-names: Nitin
+    - family-names: Dedhia
+      given-names: Yatharth
+    - family-names: Doshi
+      given-names: Keyur
+    - family-names: Devadiga
+      given-names: Prashant
+  year: 2026
+  doi: "10.48550/arXiv.2609.29167"
+  url: "https://arxiv.org/abs/2609.29167"

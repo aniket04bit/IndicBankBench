@@ -17,6 +17,13 @@ dependencies = [
     "huggingface_hub>=1.0",
 ]
 
+[project.urls]
+Paper = "https://arxiv.org/abs/2609.29167"
+Repository = "https://github.com/npci/IndicBankBench"
+Dataset = "https://huggingface.co/datasets/NPCI/IndicBankBench"
+Documentation = "https://github.com/npci/IndicBankBench#readme"
+Issues = "https://github.com/npci/IndicBankBench/issues"
+
 [project.scripts]
 indicbankbench = "harness.cli:main"
 
